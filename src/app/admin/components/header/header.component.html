@@ -1,0 +1,17 @@
+<div class="header-wrapper">
+  <div class="logo">
+    <p>Pocket <span>Search</span></p>
+  </div>
+  <div class="lang-change">
+    <div class="switch-item" [ngClass]="{'active':dict === selectedDictionary}" *ngFor="let dict of Dictionaries" (click)="selectedDictionary = dict">
+      <img src="assets/images/{{dict.from}}.svg" alt="">
+      <img src="assets/images/right-arrow.svg" alt="">
+      <img src="assets/images/{{dict.to}}.svg" alt="">
+    </div>
+
+  </div>
+  <div class="personal-info">
+    <p>{{PersonalInfo}}</p>
+    <img src="assets/images/logout.svg" (click)="logOut()" alt="">
+  </div>
+</div>

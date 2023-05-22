@@ -1,0 +1,51 @@
+<div class="login-wrapper">
+  <div class="main-form-block">
+    <div class="logo">
+      <p>Pocket <span>Search</span></p>
+    </div>
+    <div class="header">
+
+      <h3>Sign Into<br>Your Account</h3>
+    </div>
+    <div class="body">
+      <form action="submit" (submit)="Submit()" [formGroup]="SignInForm">
+        <div class="input-item">
+          <label for="username">Username</label>
+          <div class="username">
+            <input type="text" id="username" name="username" [(ngModel)]="signInRequest.userName"
+            formControlName="username">
+            <div class="icon">
+              <img src="assets/images/briefcase.svg" alt="">
+            </div>
+          </div>
+
+        </div>
+        <div class="input-item password">
+          <label for="password">Password</label>
+          <div class="pass">
+            <input type="password" id="password" name="password" [(ngModel)]="signInRequest.password"
+              formControlName="password">
+              <div class="icon">
+                <img src="assets/images/lock.svg" alt="">
+              </div>
+          </div>
+
+        </div>
+        <div class="input-item remember">
+          <input type="checkbox" id="remember" name="remember" [(ngModel)]="signInRequest.rememberMe"
+            formControlName="remember">
+          <label for="remember">Remember me</label>
+        </div>
+        <div class="input-item submit">
+          <button>Log in</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="big-pic">
+    <img src="assets/images/Frame.svg" alt="">
+  </div>
+  <!-- <div class="small-pic">
+    <img src="assets/images/Frame.svg" alt="">
+  </div> -->
+</div>

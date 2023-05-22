@@ -1,0 +1,85 @@
+.words-list-wrapper {
+  padding: 31px 38px;
+
+  .count-cards {
+    padding-bottom: 26px;
+    border-bottom: 1px solid #D8D8D8;
+  }
+
+  .alphabet-table {
+    padding-top: 27px;
+    .table-block {
+
+
+      .pagination-search {
+        display: flex;
+        justify-content: space-between;
+
+        .pagination {
+          display: flex;
+          gap: 8px;
+
+          .item {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(180deg, #059186 0%, #059186 51.03%, #02A698 51.04%, #02A698 100%);
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            &.count {
+              background: #EDEDF1;
+              cursor: auto;
+
+              p {
+                font-weight: 500;
+                font-size: 13px;
+                line-height: 20px;
+                text-align: center;
+                color: #464E5F;
+              }
+            }
+          }
+        }
+
+        .search {
+          position: relative;
+
+          input {
+            width: 250px;
+            height: 40px;
+            background: #F3F6F9;
+            border-radius: 32px;
+            border: none;
+            outline: none;
+            padding-right: 50px;
+            padding-left: 10px;
+            box-sizing: border-box;
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 18px;
+            color: #848484;
+
+          }
+
+          .search-btn {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(180deg, #059186 0%, #059186 51.03%, #02A698 51.04%, #02A698 100%);
+            border-radius: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+}
