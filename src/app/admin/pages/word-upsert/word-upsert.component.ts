@@ -40,12 +40,23 @@ export class WordUpsertComponent {
     if (this.WordId !== 'create') {
       this.getById(this.WordId);
     }
+    this.addSense();
   };
 
   getById(WordId: string) {
     this.service.getById(WordId).subscribe(resp => {
       console.log(resp);
-      this.Request = resp
+      this.Request = resp;
+      this.Request.senses.forEach(s => {
+        s.antonymsForView = []
+        s.antonyms.forEach(s1 => {
+          s.antonymsForView.push(s1.headWord + ' ( ' + s1.gloss + ' )');
+        })
+        s.synonymsForView = []
+        s.synonyms.forEach(s1 => {
+          s.synonymsForView.push(s1.headWord + ' ( ' + s1.gloss + ' )');
+        })
+      })
     })
   }
 
@@ -57,16 +68,30 @@ export class WordUpsertComponent {
     this.Request.senses.splice(index, 1);
   }
   delete() {
-    this.router.navigate(['main']);
+    if(this.WordId === 'create'){
+      this.router.navigate(['main']);
+    }
+    else{
+      this.service.delete(this.Request).subscribe(resp=>{
+        this.router.navigate(['main']);
+      })
+    }
   }
   saveClose() {
-    this.service.saveClose(this.Request);
+    if (this.WordId === 'create') {
+      this.service.saveClose(this.Request);
+    }
+    else {
+      this.service.update(this.Request).subscribe(response => {
+        this.router.navigate(['main']);
+      })
+    }
   }
   saveNew() {
     this.service.saveNew(this.Request, this);
   }
   search(sense: WordsSense) {
-    this.service.SearchByText(sense,1);
+    this.service.SearchByText(sense, 1);
     sense.showSynonymDrop = true;
   }
   clearSearchArray(sense: WordsSense) {

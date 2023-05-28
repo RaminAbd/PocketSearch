@@ -57,4 +57,10 @@ export class WordUpsertService {
   getById(id: string) {
     return this.service.GetById('words/get/', id);
   }
+  update(req:WordRequest){
+    return this.service.Update('words', req);
+  }
+  delete(req:WordRequest){
+    return this.service.Delete('words', req.id);
+  }
 }

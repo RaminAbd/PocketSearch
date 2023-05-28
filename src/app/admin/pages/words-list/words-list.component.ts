@@ -16,6 +16,7 @@ import { CardsDTO } from '../../models/CardsDTO.model';
 export class WordsListComponent {
   WordsList: WordsPagingresponseDTO = new WordsPagingresponseDTO()
   englishLetters: any[] = []
+  Letters: string[] = []
   selectedLetter: any;
   Request: WordsPagingRequest = new WordsPagingRequest();
   cardsInfo: CardsDTO = new CardsDTO();
@@ -25,8 +26,20 @@ export class WordsListComponent {
       this.Request.DictionaryId = dic.id;
       this.service.GetWithPaging(this.Request, this);
       this.service.getCards(this.Request, this);
+      if (this.Request.DictionaryId === '4e55dd0d-aace-4cb9-a986-6ad54ebf06c8') {
+        this.Letters = Array.from(Array(33), (_, i) => String.fromCharCode(4304 + i));
+      }
+      else {
+        this.Letters = Array.from(Array(26), (_, i) => String.fromCharCode(65 + i));
+      }
     })
-    this.englishLetters = Array.from(Array(26), (_, i) => String.fromCharCode(65 + i));
+
+    if (this.Request.DictionaryId === '4e55dd0d-aace-4cb9-a986-6ad54ebf06c8') {
+      this.Letters = Array.from(Array(33), (_, i) => String.fromCharCode(4304 + i));
+    }
+    else {
+      this.Letters = Array.from(Array(26), (_, i) => String.fromCharCode(65 + i));
+    }
     this.service.GetWithPaging(this.Request, this);
     this.service.getCards(this.Request, this);
   };
@@ -38,7 +51,12 @@ export class WordsListComponent {
     this.service.GetWithPaging(this.Request, this);
   }
   getLetter(item: string) {
-    this.Request.Letter = item;
+    if (this.Request.Letter !== item) {
+      this.Request.Letter = item;
+    }
+    else {
+      this.Request.Letter = '';
+    }
     this.service.GetWithPaging(this.Request, this);
   }
   SearchByText() {

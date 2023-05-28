@@ -28,6 +28,7 @@ export class DropdownComponent {
   }
 
   selectOption(option: any): void {
+    this.selectedOption = option;
     this.selectValue.emit(this.selectedOption);
     this.isOpen = false;
   }
