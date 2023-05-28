@@ -1,0 +1,11 @@
+<div class="dropdown">
+  <div class="dropdown-toggle" (click)="toggleDropdown()">
+    <p>{{ selectedOption?.name }}</p>
+    <span class="arrow"></span>
+  </div>
+  <div class="dropdown-menu" [@fadeInOut]="isOpen ? 'show' : 'hide'">
+    <div class="dropdown-option" *ngFor="let option of options" (click)="selectOption(option)">
+      {{ option.name }}
+    </div>
+  </div>
+</div>

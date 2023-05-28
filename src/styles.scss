@@ -20,6 +20,10 @@
   src: url('./assets/fonts/Poppins-Bold.ttf') format('truetype');
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -40,4 +44,20 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
+}
+
+input,
+textarea {
+  outline: none;
+  font-family: 'Poppins';
+  font-style: normal;
+  padding: 10px;
+}
+
+p,
+h3,
+label,
+h2 {
+  font-family: 'Poppins';
+  font-style: normal;
 }

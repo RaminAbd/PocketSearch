@@ -31,7 +31,7 @@ export class BaseCrudApiService extends BaseApiService {
   }
 
   GetById(serviceUrl: string, id: string) {
-    return this.get(serviceUrl + '/GetById/', id, null);
+    return this.get(serviceUrl, id, null);
   }
 
   Delete(serviceUrl: string, id: string) {
@@ -40,6 +40,9 @@ export class BaseCrudApiService extends BaseApiService {
 
   GetByIdByLang(serviceUrl: string, req: any) {
     return this.get(serviceUrl, null, req);
+  }
+  GetWithPaging(serviceUrl: string, req: any) {
+    return this.get(serviceUrl + '/GetWithPaging', null, req);
   }
 
 }

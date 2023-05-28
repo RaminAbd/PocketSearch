@@ -9,11 +9,14 @@ import { LoginResponse } from '../models/LoginResponse.model';
 })
 export class HeaderService {
 
-  constructor(private dictionaryService: DictionarieApiService, private storage: StorageService) { }
+  constructor(
+    private dictionaryService: DictionarieApiService,
+    private storage: StorageService,
+    private disctionaryService: DictionarieApiService) { }
   getDictionaries(component: HeaderComponent) {
     this.dictionaryService.GetAll('Dictionaries').subscribe(resp => {
       component.Dictionaries = resp;
-      component.selectedDictionary = component.Dictionaries[0];
+      component.selectActiveDictionary(component.Dictionaries[0])
     })
   }
   getPersonalInfo(component: HeaderComponent) {

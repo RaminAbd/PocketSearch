@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { BaseCrudApiService } from './base-crud.api.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DictionarieApiService extends BaseCrudApiService{
-
+  applicationSelectedDictionary:any = new EventEmitter();
   constructor(http:HttpClient) {
     super(http);
   }

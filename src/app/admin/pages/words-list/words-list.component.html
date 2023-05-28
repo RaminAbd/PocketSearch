@@ -1,22 +1,73 @@
 <div class="words-list-wrapper">
   <div class="count-cards">
-    <app-count-cards></app-count-cards>
+    <app-count-cards (create)="Create()" [CardsInfo]="cardsInfo"></app-count-cards>
   </div>
   <div class="alphabet-table">
-    <div class="aphabet">
-
+    <div class="alphabet">
+      <div class="col">
+        <div class="item" *ngFor="let item of englishLetters" [ngClass]="{'active':Request.Letter===item}">
+          <p (click)="getLetter(item)">{{item}}</p>
+        </div>
+      </div>
     </div>
     <div class="table-block">
       <div class="pagination-search">
         <div class="pagination">
-          <div class="item"><img src="assets/images/left-arrow.svg" alt=""></div>
-          <div class="item count"><p>3</p></div>
-          <div class="item"><img src="assets/images/right-arrow.svg" alt=""></div>
+          <div class="item" (click)="WordsList.hasPrevious ? getPage((WordsList.currentPage-1)) : ''"
+            [ngClass]="{'disabled':!WordsList.hasPrevious}">
+            <img src="assets/images/left-arrow.svg" alt=""></div>
+          <div class="item count">
+            <p>{{WordsList.currentPage}}</p>
+          </div>
+          <div class="item" (click)="WordsList.hasNext ? getPage((WordsList.currentPage+1)) : ''"
+            [ngClass]="{'disabled':!WordsList.hasNext}"><img src="assets/images/right-arrow.svg" alt="">
+          </div>
         </div>
         <div class="search">
-          <input type="text">
-          <div class="search-btn">
+          <input type="text" [(ngModel)]="Request.SearchText" (keyup.enter)="SearchByText()">
+          <div class="search-btn" (click)="SearchByText()">
             <img src="assets/images/search-btn.svg" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="table">
+        <div class="header">
+          <div class="header-item">
+            <p>Headword</p>
+          </div>
+          <div class="header-item">
+            <p>Glosses</p>
+          </div>
+          <div class="header-item definition">
+            <p>Definition</p>
+          </div>
+          <div class="header-item">
+            <p>Synonyms</p>
+          </div>
+          <div class="header-item">
+            <p>Antonyms</p>
+          </div>
+
+        </div>
+        <div class="body">
+          <div class="row" *ngFor="let rowData of WordsList.items" (click)="getRowDetail(rowData)">
+            <div class="row-item">
+              <p>{{rowData.headWord}}</p>
+            </div>
+            <div class="row-item">
+              <p><span *ngFor="let glos of rowData.glosses">{{glos}}</span></p>
+            </div>
+            <div class="row-item definition">
+              <p><span *ngFor="let definition of rowData.definitions">{{definition}}</span></p>
+            </div>
+            <div class="row-item">
+              <p>
+                <p><span *ngFor="let synonym of rowData.synonyms">{{synonym}}</span></p>
+            </div>
+            <div class="row-item">
+              <p>
+                <p><span *ngFor="let antonym of rowData.antonyms">{{antonym}}</span></p>
+            </div>
           </div>
         </div>
       </div>

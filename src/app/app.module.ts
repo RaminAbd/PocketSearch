@@ -12,6 +12,10 @@ import { RefreshTokenInterceptor } from './admin/auth/interceptors/refresh-token
 import { MainLayoutComponent } from './admin/pages/main-layout/main-layout.component';
 import { HeaderComponent } from './admin/components/header/header.component';
 import { CountCardsComponent } from './admin/components/count-cards/count-cards.component';
+import { WordUpsertComponent } from './admin/pages/word-upsert/word-upsert.component';
+import { DropdownComponent } from './admin/components/dropdown/dropdown.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MultiselectComponent } from './admin/components/multiselect/multiselect.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,10 +23,14 @@ import { CountCardsComponent } from './admin/components/count-cards/count-cards.
     LoginComponent,
     MainLayoutComponent,
     HeaderComponent,
-    CountCardsComponent
+    CountCardsComponent,
+    WordUpsertComponent,
+    DropdownComponent,
+    MultiselectComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,

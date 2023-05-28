@@ -1,0 +1,11 @@
+<div class="multiselect">
+ <input type="text" >
+  <ul *ngIf="isDropdownOpen">
+    <li *ngFor="let option of options">
+      <label>
+        <input type="checkbox" [value]="option" (change)="onOptionChange($event.target, option)">
+        {{ option }}
+      </label>
+    </li>
+  </ul>
+</div>

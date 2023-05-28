@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { OutletContext } from '@angular/router';
+import { CardsDTO } from '../../models/CardsDTO.model';
 
 @Component({
   selector: 'app-count-cards',
@@ -6,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./count-cards.component.scss']
 })
 export class CountCardsComponent {
+  @Output() create = new EventEmitter();
+  @Input() CardsInfo: CardsDTO = new CardsDTO();
+  constructor() { };
 
 }

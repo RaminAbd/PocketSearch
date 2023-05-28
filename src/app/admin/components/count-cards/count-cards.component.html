@@ -5,11 +5,11 @@
         All words
       </p>
       <p class="value">
-        2056
+        {{CardsInfo.all.amount}}
       </p>
     </div>
     <div class="create">
-      <button>Add new</button>
+      <button (click)="create.emit()">Add new</button>
     </div>
   </div>
   <div class="other">
@@ -18,31 +18,31 @@
         Adverbs
       </p>
       <p class="value">
-        1250
+        {{CardsInfo.adverbs.amount}}
       </p>
     </div>
     <div class="card-item">
       <p class="label">
-        Adverbs
+        Verbs
       </p>
       <p class="value">
-        1250
+        {{CardsInfo.verbs.amount}}
       </p>
     </div>
     <div class="card-item">
       <p class="label">
-        Adverbs
+        Nouns
       </p>
       <p class="value">
-        1250
+        {{CardsInfo.nouns.amount}}
       </p>
     </div>
     <div class="card-item">
       <p class="label">
-        Adverbs
+        Pronouns
       </p>
       <p class="value">
-        1250
+        {{CardsInfo.pronouns.amount}}
       </p>
     </div>
   </div>
