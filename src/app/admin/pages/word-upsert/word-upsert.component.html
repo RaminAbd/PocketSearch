@@ -6,8 +6,8 @@
   <div class="preview-block">
     <p class="preview">Preview</p>
     <p class="preview-text">
-      <span style="font-weight: bold;">ბაბანი</span> [tələffüz] ts. Söhbət - tərcümə. Şifahi fikir, məlumat mübadiləsi;
-      danışıqç müsahibəç ixtilat. Uzun-uzadı söhbət. - izahı. გლეხებს ძალიან უყვარდათ ამ ხის ქვეშ ბაასი. (ი. გოგებ.) -
+      <span style="font-weight: bold;">{{Request.headWord ? Request.headWord : ''}}</span> [{{Request.pronunciation? Request.pronunciation : ''}}] ts. <span *ngFor="let item of Request.senses">{{item.gloss ? item.gloss : '' + ', '}}</span>- tərcümə.
+       <span *ngFor="let item of Request.senses">{{item.definition?item.definition:'' + ', '}}</span> - izahı. <span *ngFor="let item of Request.senses">{{item.exampleOriginal ? item.exampleOriginal : '' + ', '}}</span>-
       ნიმუში sin:
     </p>
   </div>
