@@ -3,6 +3,9 @@ import { WordRequest } from '../../models/WordRequest.model';
 import { WordsSense } from '../../models/WordsSense.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WordUpsertService } from './word-upsert.service';
+import { MessageService, ConfirmationService, PrimeNGConfig } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+import { CreateWordComponent } from '../../components/create-word/create-word.component';
 
 @Component({
   selector: 'app-word-upsert',
@@ -12,6 +15,7 @@ import { WordUpsertService } from './word-upsert.service';
 export class WordUpsertComponent {
   Request: WordRequest = new WordRequest();
   WordId: string;
+  deleteLoading: boolean = false;
   grammaticalInfoOptions: any[] = [
     {
       "name": "Verbs",
@@ -35,7 +39,15 @@ export class WordUpsertComponent {
     }
   ]
 
-  constructor(private router: Router, private service: WordUpsertService, private route: ActivatedRoute) {
+  constructor(
+    private router: Router,
+    private service: WordUpsertService,
+    private route: ActivatedRoute,
+    public dialogService: DialogService,
+    private confirmationService: ConfirmationService,
+    private primengConfig: PrimeNGConfig
+  ) {
+    this.primengConfig.ripple = true;
     this.WordId = this.route.snapshot.paramMap.get('id') as string;
     if (this.WordId !== 'create') {
       this.getById(this.WordId);
@@ -68,11 +80,13 @@ export class WordUpsertComponent {
     this.Request.senses.splice(index, 1);
   }
   delete() {
-    if(this.WordId === 'create'){
+    if (this.WordId === 'create') {
       this.router.navigate(['main']);
     }
-    else{
-      this.service.delete(this.Request).subscribe(resp=>{
+    else {
+      this.deleteLoading = true;
+      this.service.delete(this.Request).subscribe(resp => {
+        this.deleteLoading = false;
         this.router.navigate(['main']);
       })
     }
@@ -90,19 +104,21 @@ export class WordUpsertComponent {
   saveNew() {
     this.service.saveNew(this.Request, this);
   }
+
+
+
   search(sense: WordsSense) {
+    sense.synonymLoading = true
     this.service.SearchByText(sense, 1);
     sense.showSynonymDrop = true;
   }
+
+
   clearSearchArray(sense: WordsSense) {
     sense.showSynonymDrop = false;
     sense.SearchResults = [];
   }
-  selectSynonym(res: any, sense: WordsSense) {
-    var synonym = {
-      senseId: res.senses[0].id,
-      headWord: res.headWord
-    }
+  selectSynonym(res: any, sense: WordsSense, synonym: any) {
     sense.synonyms.push(synonym);
     sense.synonymsForView.push(res.headWord + ' ( ' + res.senses[0].gloss + ' )');
     sense.showSynonymDrop = false;
@@ -115,22 +131,42 @@ export class WordUpsertComponent {
     sense.synonymsForView.splice(index, 1);
   }
 
+  showSensesInres(res: any, sense: WordsSense) {
+    if (res.senses.length > 1) {
+      res.showSenses = true;
+    }
+    else {
+      if (res.senses.length === 1) {
+        var synonym = {
+          senseId: res.senses[0].id,
+          headWord: res.headWord
+        }
+        this.selectSynonym(res, sense, synonym);
+      }
+    }
+  }
+
+  selectSynonymFromUI(res: any, sense: WordsSense, resSense: WordsSense) {
+    var synonym = {
+      senseId: resSense.id,
+      headWord: res.headWord
+    }
+    this.selectSynonym(res, sense, synonym)
+  }
+
 
 
 
   searchAntonym(sense: WordsSense) {
     this.service.SearchByText(sense, 2);
     sense.showAntonymDrop = true;
+    sense.antonymLoading = true;
   }
   clearAntonymSearchArray(sense: WordsSense) {
     sense.showAntonymDrop = false;
     sense.AntonymSearchResults = [];
   }
-  selectAntonym(res: any, sense: WordsSense) {
-    var antonym = {
-      senseId: res.senses[0].id,
-      headWord: res.headWord
-    }
+  selectAntonym(res: any, sense: WordsSense, antonym: any) {
     sense.antonyms.push(antonym);
     sense.antonymsForView.push(res.headWord + ' ( ' + res.senses[0].gloss + ' )');
     sense.showAntonymDrop = false;
@@ -143,10 +179,61 @@ export class WordUpsertComponent {
     sense.antonymsForView.splice(index, 1);
   }
 
+  showAntonymSensesInres(res: any, sense: WordsSense) {
+    if (res.senses.length > 1) {
+      res.showSenses = true;
+    }
+    else {
+      if (res.senses.length === 1) {
+        var antonym = {
+          senseId: res.senses[0].id,
+          headWord: res.headWord
+        }
+        this.selectAntonym(res, sense, antonym);
+      }
+    }
+  }
 
+  selectAntonymFromUI(res: any, sense: WordsSense, resSense: WordsSense) {
+    var antonym = {
+      senseId: resSense.id,
+      headWord: res.headWord
+    }
+    this.selectAntonym(res, sense, antonym)
+  }
+
+  createWord(sense: WordsSense) {
+    sense.AntonymSearchResults = [];
+    sense.showAntonymDrop = false;
+    sense.showSynonymDrop = false;
+    sense.SearchResults = [];
+
+    const ref = this.dialogService.open(CreateWordComponent, {
+      header: 'Create new word',
+      width: '85%'
+    });
+    ref.onClose.subscribe((req) => {
+      if (req) {
+        console.log('creeated');
+      }
+    });
+  }
 
 
   goToBack() {
     this.router.navigate(['main'])
   }
+
+  confirmPosition() {
+    this.confirmationService.confirm({
+        message: 'Do you want to delete this record?',
+        header: 'Delete Confirmation',
+        icon: 'pi pi-info-circle',
+        accept: () => {
+          this.delete()
+        },
+        key: "positionDialog"
+    });
+}
+
 }

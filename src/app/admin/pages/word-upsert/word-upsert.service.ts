@@ -6,6 +6,7 @@ import { StorageService } from '../../services/storage.service';
 import { WordsSense } from '../../models/WordsSense.model';
 import { WordsPagingRequest } from '../../models/WordsPagingRequest.model';
 import { WordUpsertComponent } from './word-upsert.component';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
@@ -16,38 +17,80 @@ export class WordUpsertService {
     private service: WordsApiService,
     private router: Router,
     private storage: StorageService,
-    private worsService: WordsApiService
+    private worsService: WordsApiService,
+    private messageService: MessageService,
   ) { }
+
+  validateForm(req: WordRequest) {
+    var isValid = false;
+    if (req.headWord) {
+      isValid = true;
+    }
+    else {
+      isValid = false;
+    }
+    if (req.senses.length > 0) {
+      isValid = true;
+      req.senses.forEach(x => {
+        if (x.gloss) {
+          isValid = true;
+        }
+        else {
+          isValid = false;
+        }
+      })
+    }
+    else {
+      isValid = false;
+    }
+    return isValid;
+  }
+
 
   saveClose(req: WordRequest) {
     req.dictionaryId = this.storage.getObject('dictionaryId');
     console.log(req);
-    this.Create(req).subscribe(resp => {
-      this.router.navigate(['main'])
-    })
+    if (this.validateForm(req)) {
+      this.Create(req).subscribe(resp => {
+        this.router.navigate(['main'])
+      })
+    }
+    else {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill in all required fields.' });
+    }
+
   }
   saveNew(req: WordRequest, component: WordUpsertComponent) {
     req.dictionaryId = this.storage.getObject('dictionaryId');
-    console.log(req);
-    this.Create(req).subscribe(resp => {
-      component.Request = new WordRequest()
-    })
+    if (this.validateForm(req)) {
+      this.Create(req).subscribe(resp => {
+        this.messageService.add({ severity: 'success', summary: 'Service Message', detail: 'Created successfully' });
+        component.Request = new WordRequest()
+        component.addSense();
+      },
+        (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Something went wrong' });
+        })
+    }
+    else {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please fill in all required fields.' });
+    }
   }
-  SearchByText(sense: WordsSense, type:number) {
+  SearchByText(sense: WordsSense, type: number) {
     var req = new WordsPagingRequest();
     req.DictionaryId = this.storage.getObject('dictionaryId');
     req.PageIndex = 1;
     req.PageSize = 3;
-    req.SearchText = type===1 ? sense.SynonimSearchText : sense.AntonymSearchText;
+    req.SearchText = type === 1 ? sense.SynonimSearchText : sense.AntonymSearchText;
     this.worsService.GetWithPaging('words', req).subscribe(resp => {
-      if(type === 1){
+      if (type === 1) {
         sense.SearchResults = resp.items;
-        console.log('if');
-        console.log(sense);
+        sense.synonymLoading = false;
       }
-      else{
-        console.log('else');
+      else {
         sense.AntonymSearchResults = resp.items;
+        sense.antonymLoading = false;
+
       }
     })
   }
@@ -57,10 +100,10 @@ export class WordUpsertService {
   getById(id: string) {
     return this.service.GetById('words/get/', id);
   }
-  update(req:WordRequest){
+  update(req: WordRequest) {
     return this.service.Update('words', req);
   }
-  delete(req:WordRequest){
+  delete(req: WordRequest) {
     return this.service.Delete('words', req.id);
   }
 }

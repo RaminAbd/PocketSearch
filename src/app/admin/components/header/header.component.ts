@@ -32,6 +32,7 @@ export class HeaderComponent {
     this.selectedDictionary = dict;
     this.dictionaryService.applicationSelectedDictionary.emit(this.selectedDictionary);
     this.storage.saveObject('dictionaryId', this.selectedDictionary.id);
+    // this.goToHome()
   }
   goToHome(){
     this.router.navigate(['main'])

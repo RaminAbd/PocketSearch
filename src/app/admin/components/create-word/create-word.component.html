@@ -1,0 +1,96 @@
+<div class="word-create-wrapper">
+  <div class="preview-block">
+    <p class="preview">Preview</p>
+    <p class="preview-text">
+      <span style="font-weight: bold;">{{Request.headWord ? Request.headWord : ''}}</span>
+      [{{Request.pronunciation? Request.pronunciation : ''}}] ts. <span
+        *ngFor="let item of Request.senses">{{item.gloss ? item.gloss : '' + ', '}}</span>- tərcümə.
+      <span *ngFor="let item of Request.senses">{{item.definition?item.definition:'' + ', '}}</span> - izahı. <span
+        *ngFor="let item of Request.senses">{{item.exampleOriginal ? item.exampleOriginal : '' + ', '}}</span>-
+      ნიმუში sin:
+    </p>
+  </div>
+  <div class="main-form-block">
+    <div class="row main">
+      <div class="input-item">
+        <label for="">Main word</label>
+        <input type="text" [(ngModel)]="Request.headWord">
+      </div>
+      <div class="input-item">
+        <label for="">Location</label>
+        <input type="text" [(ngModel)]="Request.location">
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="input-item">
+        <label for="">Lexeme Form</label>
+        <textarea name="" id="" [(ngModel)]="Request.headWord"></textarea>
+      </div>
+      <div class="input-item">
+        <label for="">Pronunciation</label>
+        <textarea name="" id="" [(ngModel)]="Request.pronunciation"></textarea>
+      </div>
+      <div class="input-item">
+        <label for="">Etymology</label>
+        <textarea name="" id="" [(ngModel)]="Request.etymology"></textarea>
+      </div>
+    </div>
+    <div class="senses">
+      <div class="sense-item" *ngFor="let sense of Request.senses;let i = index;">
+        <div class="header">
+          <h3>Sense {{i+1}}</h3>
+          <div class="delete" *ngIf="Request.senses.length > 1 " (click)="deleteSense(i)">
+            <i class="pi pi-trash"></i>
+          </div>
+        </div>
+        <div class="sense-form">
+          <div class="row">
+            <div class="input-item">
+              <label for="">Gloss</label>
+              <textarea name="" id="" [(ngModel)]="sense.gloss"></textarea>
+            </div>
+            <div class="input-item">
+              <label for="">Definition</label>
+              <textarea name="" id="" [(ngModel)]="sense.definition"></textarea>
+            </div>
+            <div class="input-item">
+              <label for="">Academic</label>
+              <textarea name="" id="" [(ngModel)]="sense.academic"></textarea>
+            </div>
+          </div>
+          <div class="row second">
+            <div class="input-item">
+              <label for="">Example original</label>
+              <textarea name="" id="" [(ngModel)]="sense.exampleOriginal"></textarea>
+            </div>
+            <div class="input-item">
+              <label for="">Example translation</label>
+              <textarea name="" id="" [(ngModel)]="sense.exampleTranslation"></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-item">
+              <label for="">Gramatical info</label>
+              <app-dropdown [options]="grammaticalInfoOptions" (selectValue)="sense.grammaticalInfo = $event.type"
+                [DefaultSelection]="sense.grammaticalInfo"></app-dropdown>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="add-sense-btn" (click)="addSense()">
+      <div class="plus-icon"></div>
+      <p>Add sense {{Request.senses.length + 1}}</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="save-btns">
+      <div class="save-close" (click)="saveClose(Request)">
+        <i class="pi pi-save"></i>
+        <p>Save & Close</p>
+      </div>
+    </div>
+  </div>
+</div>

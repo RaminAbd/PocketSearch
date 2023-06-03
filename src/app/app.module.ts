@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WordsListComponent } from './admin/pages/words-list/words-list.component';
@@ -16,6 +15,13 @@ import { WordUpsertComponent } from './admin/pages/word-upsert/word-upsert.compo
 import { DropdownComponent } from './admin/components/dropdown/dropdown.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MultiselectComponent } from './admin/components/multiselect/multiselect.component';
+import { ButtonModule } from 'primeng/button';
+import {ToastModule} from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
+import { CreateWordComponent } from './admin/components/create-word/create-word.component';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,17 +32,25 @@ import { MultiselectComponent } from './admin/components/multiselect/multiselect
     CountCardsComponent,
     WordUpsertComponent,
     DropdownComponent,
-    MultiselectComponent
+    MultiselectComponent,
+    CreateWordComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    ToastModule,
+    ConfirmDialogModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    ButtonModule,
+    DynamicDialogModule
   ],
   providers: [
+    MessageService,
+    DialogService,
+    ConfirmationService,
     { provide: HTTP_INTERCEPTORS, useClass: tokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true }
   ],

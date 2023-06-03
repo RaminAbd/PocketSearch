@@ -20,10 +20,10 @@ export class WordsListService {
     private storage: StorageService
   ) { }
 
-  GetWithPaging(req: WordsPagingRequest, component: WordsListComponent) {
+  GetWithPaging(req: WordsPagingRequest, component: WordsListComponent, load: boolean) {
+    load ? component.loading = true : component.searchLoading = true;
     this.service.GetWithPaging('words', req).subscribe(resp => {
-      console.log(resp);
-
+      load ? component.loading = false : component.searchLoading = false;
       this.changeResponse(resp, component)
     })
   }

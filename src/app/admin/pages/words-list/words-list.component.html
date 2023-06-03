@@ -1,4 +1,4 @@
-<div class="words-list-wrapper">
+<div class="words-list-wrapper" *ngIf="!loading">
   <div class="count-cards">
     <app-count-cards (create)="Create()" [CardsInfo]="cardsInfo"></app-count-cards>
   </div>
@@ -26,7 +26,8 @@
         <div class="search">
           <input type="text" [(ngModel)]="Request.SearchText" (keyup.enter)="SearchByText()">
           <div class="search-btn" (click)="SearchByText()">
-            <img src="assets/images/search-btn.svg" alt="">
+            <i class="pi pi-search" *ngIf="!searchLoading"></i>
+            <i class="pi pi-spin pi-spinner" *ngIf="searchLoading"></i>
           </div>
         </div>
       </div>
@@ -74,4 +75,8 @@
     </div>
   </div>
 
+</div>
+
+<div class="loading" *ngIf="loading">
+  <i class="pi pi-spin pi-spinner"></i>
 </div>

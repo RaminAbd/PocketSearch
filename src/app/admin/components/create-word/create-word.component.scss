@@ -1,7 +1,6 @@
-.word-upsert-wrapper {
-  padding: 36px 240px;
+.word-create-wrapper {
   position: relative;
-  padding-bottom: 200px;
+  padding-bottom: 100px;
 
   .back {
     display: flex;
@@ -238,9 +237,9 @@
 
   .actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     position: absolute;
-    width: calc(100% - 480px);
+    width: calc(100%);
     bottom: 30px;
 
     .delete {
@@ -371,7 +370,7 @@
       font-weight: 400;
       font-size: 11px;
       color: #5F5959;
-      width: 90%;
+      width: auto;
     }
 
     .remove {

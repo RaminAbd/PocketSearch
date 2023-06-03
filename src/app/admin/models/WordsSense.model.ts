@@ -15,9 +15,13 @@ export class WordsSense {
   SearchResults: any[] = []
   showSynonymDrop: boolean = false;
   synonymsForView:string[]=[]
+  synonymLoading: boolean = false;
+  showSelectedSynonymSenses:boolean = false;
 
   AntonymSearchText: string;
   AntonymSearchResults: any[] = []
   showAntonymDrop: boolean = false;
   antonymsForView:string[]=[]
+  antonymLoading: boolean = false;
+  showSelectedAntonymSenses:boolean = false;
 }
