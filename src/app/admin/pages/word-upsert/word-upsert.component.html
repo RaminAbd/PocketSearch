@@ -6,12 +6,34 @@
   <div class="preview-block">
     <p class="preview">Preview</p>
     <p class="preview-text">
-      <span style="font-weight: bold;">{{Request.headWord ? Request.headWord : ''}}</span>
+      <span style="font-weight: bold;">{{(Request.headWord ? Request.headWord : '')}}</span>
       [{{Request.pronunciation? Request.pronunciation : ''}}] ts. <span
         *ngFor="let item of Request.senses">{{item.gloss ? item.gloss : '' + ', '}}</span>- tərcümə.
+      <br>
       <span *ngFor="let item of Request.senses">{{item.definition?item.definition:'' + ', '}}</span> - izahı. <span
         *ngFor="let item of Request.senses">{{item.exampleOriginal ? item.exampleOriginal : '' + ', '}}</span>-
       ნიმუში sin:
+      <br>
+      <span>Synonyms: </span>
+      <span *ngFor="let item of Request.senses">
+        <span *ngFor="let s of item.synonyms">
+           {{s ? (s.headWord + s.gloss):'' + ', '}}
+
+        </span>
+      </span>
+      <br>
+      <span>Antonyms: </span>
+      <span *ngFor="let item of Request.senses">
+        <span *ngFor="let s of item.antonyms">
+           {{s ? (s.headWord + s.gloss):'' + ', '}}
+
+        </span>
+      </span>
+      <br>
+      <span>See also: </span>
+      <span *ngFor="let item of Request.senses">
+       {{item.definition + ', '}}
+      </span>
     </p>
   </div>
   <div class="main-form-block">
@@ -76,12 +98,9 @@
           <div class="row">
             <div class="input-item">
               <label for="">Gramatical info</label>
-              <app-dropdown [options]="grammaticalInfoOptions" (selectValue)="sense.grammaticalInfo = $event.type"
+              <app-dropdown [options]="grammaticalInfoOptions" (selectValue)="selectGrammaticalInfo($event, sense)"
                 [DefaultSelection]="sense.grammaticalInfo"></app-dropdown>
             </div>
-
-
-
             <div class="input-item synonym">
               <label for="">Synonyms</label>
               <div class="dropdown">
@@ -92,7 +111,7 @@
                   <i class="pi pi-spin pi-spinner" *ngIf="sense.synonymLoading"></i>
                 </div>
                 <div class="list" *ngIf="sense.showSynonymDrop && sense.SynonimSearchText.length>2">
-                  <div class="item add-new" (click)="createWord(sense)">
+                  <div class="item add-new" (click)="createWord(sense, 1)">
                     <p>Add a new word</p>
                   </div>
                   <div class="item" *ngFor="let res of sense.SearchResults">
@@ -128,7 +147,7 @@
                   <i class="pi pi-spin pi-spinner" *ngIf="sense.antonymLoading"></i>
                 </div>
                 <div class="list" *ngIf="sense.showAntonymDrop && sense.AntonymSearchText.length>2">
-                  <div class="item add-new" (click)="createWord(sense)">
+                  <div class="item add-new" (click)="createWord(sense,2)">
                     <p>Add a new word</p>
                   </div>
                   <div class="item" *ngFor="let res of sense.AntonymSearchResults">
@@ -149,6 +168,13 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-item">
+              <label for="">Termin</label>
+              <app-termin-drop  (selectValue)="selectTerminology($event, sense)"
+                [DefaultSelection]="sense.terminologyId"></app-termin-drop>
             </div>
           </div>
         </div>
@@ -177,4 +203,5 @@
     </div>
   </div>
 </div>
-<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" position="bottom-left" [baseZIndex]="10000"></p-confirmDialog>
+<p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" position="bottom-left" [baseZIndex]="10000">
+</p-confirmDialog>

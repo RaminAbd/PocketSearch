@@ -22,6 +22,8 @@ import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
 import { CreateWordComponent } from './admin/components/create-word/create-word.component';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
+import { TerminDropComponent } from './admin/components/termin-drop/termin-drop.component';
+import { TerminUpsertComponent } from './admin/components/termin-upsert/termin-upsert.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +35,9 @@ import {ConfirmationService} from 'primeng/api';
     WordUpsertComponent,
     DropdownComponent,
     MultiselectComponent,
-    CreateWordComponent
+    CreateWordComponent,
+    TerminDropComponent,
+    TerminUpsertComponent
   ],
   imports: [
     BrowserModule,

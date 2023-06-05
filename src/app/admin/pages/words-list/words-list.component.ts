@@ -19,7 +19,7 @@ export class WordsListComponent {
   Letters: string[] = []
   selectedLetter: any;
   Request: WordsPagingRequest = new WordsPagingRequest();
-  cardsInfo: CardsDTO = new CardsDTO();
+  cardsInfo: any[]=[]
   azerbaijani_alphabet = [
     'A', 'B', 'C', 'Ç', 'D', 'E', 'Ə', 'F', 'G', 'Ğ', 'H', 'X', 'I', 'İ', 'J',
     'K', 'Q', 'L', 'M', 'N', 'O', 'Ö', 'P', 'R', 'S', 'Ş', 'T', 'U', 'Ü', 'V',

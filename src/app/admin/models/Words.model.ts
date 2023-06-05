@@ -9,4 +9,5 @@ export class Words{
 	location: string;
 	senses: WordsSense[]=[];
 	id: string;
+  isDone:boolean;
 }

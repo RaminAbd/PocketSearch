@@ -51,7 +51,7 @@
 
         </div>
         <div class="body">
-          <div class="row" *ngFor="let rowData of WordsList.items" (click)="getRowDetail(rowData)">
+          <div class="row" *ngFor="let rowData of WordsList.items" (click)="getRowDetail(rowData)" [ngClass]="{'red': !rowData.isDone}">
             <div class="row-item">
               <p>{{rowData.headWord}}</p>
             </div>

@@ -1,0 +1,49 @@
+.termin-upsert {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  .btns {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    button{
+      width: calc((100% - 63px)/4);
+      &.delete{
+        background: #FB6262;
+      }
+    }
+  }
+}
+
+.inputs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .input-item {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    gap: 6px;
+
+    label {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 22px;
+      color: #464E5F;
+    }
+
+    input {
+      width: 100%;
+      height: 50px;
+      left: 70px;
+      top: 324px;
+      background: #F3F6F9;
+      border: 1px solid #D8EBFF;
+      border-radius: 6px;
+    }
+  }
+}

@@ -15,7 +15,12 @@ export class HeaderService {
     private disctionaryService: DictionarieApiService) { }
   getDictionaries(component: HeaderComponent) {
     this.dictionaryService.GetAll('Dictionaries').subscribe(resp => {
-      component.Dictionaries = resp;
+      component.Dictionaries = resp.map((item: any) => ({
+        ...item,
+        viewFrom:item.from === 'ka-Geo' ? 'ქართული' : 'Azərbaycanca',
+        viewTo:item.to === 'ka-Geo' ? 'ქართული' : 'Azərbaycanca',
+      }));
+
       component.selectActiveDictionary(component.Dictionaries[0])
     })
   }

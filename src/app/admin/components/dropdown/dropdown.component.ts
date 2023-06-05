@@ -16,7 +16,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 export class DropdownComponent {
   isOpen = false;
   @Input() set DefaultSelection(value: any) {
-    this.selectedOption = this.options.find((x:any) => x.type === value);
+    this.selectedOption = this.options?.find((x:any) => x.type === value);
   }
   selectedOption: any;
   @Input() options: any;
@@ -24,7 +24,6 @@ export class DropdownComponent {
 
   toggleDropdown(): void {
     this.isOpen = !this.isOpen;
-    console.log(this.isOpen);
   }
 
   selectOption(option: any): void {

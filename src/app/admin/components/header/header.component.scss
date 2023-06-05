@@ -25,15 +25,24 @@
     gap: 24px;
     .switch-item{
       cursor: pointer;
-      width: 124px;
-    height: 46px;
-    left: 582px;
-    top: 17px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
+      height: 46px;
+      left: 582px;
+      top: 17px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 0 10px;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 18px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.03em;
+      color: #FFFFFF;
     &.active{
       background: rgba(255, 255, 255, 0.32);
     }

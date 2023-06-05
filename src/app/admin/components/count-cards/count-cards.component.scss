@@ -5,6 +5,7 @@ p {
 .count-cards-wrapper {
   display: flex;
   gap: 24px;
+  flex-wrap: wrap;
 
   .all {
     width: 294px;
@@ -68,22 +69,23 @@ p {
         color: #0EABF4;
       }
 
-      &:nth-child(2) {
-        p.value {
-          color: #BF59CF;
-        }
-      }
 
-      &:nth-child(3) {
-        p.value {
-          color: #5FDCB2;
-        }
+    }
+    &:nth-child(2) {
+      p.value {
+        color: #BF59CF;
       }
+    }
 
-      &:nth-child(4) {
-        p.value {
-          color: #FFB84C;
-        }
+    &:nth-child(3) {
+      p.value {
+        color: #5FDCB2;
+      }
+    }
+
+    &:nth-child(4) {
+      p.value {
+        color: #FFB84C;
       }
     }
   }

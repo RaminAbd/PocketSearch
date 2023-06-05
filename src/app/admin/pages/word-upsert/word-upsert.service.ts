@@ -7,6 +7,7 @@ import { WordsSense } from '../../models/WordsSense.model';
 import { WordsPagingRequest } from '../../models/WordsPagingRequest.model';
 import { WordUpsertComponent } from './word-upsert.component';
 import { MessageService } from 'primeng/api';
+import { TerminologiesService } from '../../services/terminologies.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class WordUpsertService {
     private storage: StorageService,
     private worsService: WordsApiService,
     private messageService: MessageService,
+    private termService:TerminologiesService
   ) { }
 
   validateForm(req: WordRequest) {
@@ -106,4 +108,12 @@ export class WordUpsertService {
   delete(req: WordRequest) {
     return this.service.Delete('words', req.id);
   }
+
+
+  // getAllTerminologies(component:WordUpsertComponent) {
+  //   var dictId = this.storage.getObject('dictionaryId');
+  //   this.termService.GetAllByDictionaryId(dictId).subscribe(resp => {
+  //     component.Terminologies = resp.options;
+  //   })
+  // }
 }

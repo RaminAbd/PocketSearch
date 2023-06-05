@@ -5,4 +5,7 @@ export class WordsDTO{
   definitions:string[] = [];
   synonyms:string[] = [];
   antonyms:string[] = [];
+  editor:string;
+  color:string;
+  isDone:boolean;
 }

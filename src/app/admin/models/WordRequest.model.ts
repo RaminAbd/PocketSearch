@@ -7,5 +7,8 @@ export class WordRequest{
 	etymology: string;
 	location: string;
 	senses: WordsSense[]=[];
+  editor:string;
+  color:string;
+  isDone:boolean;
 	id: string;
 }

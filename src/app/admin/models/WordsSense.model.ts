@@ -6,9 +6,10 @@ export class WordsSense {
   academic: string;
   exampleOriginal: string;
   exampleTranslation: string;
-  grammaticalInfo: number = 1;
+  grammaticalInfo: any = null;
   synonyms: any[] = [];
   antonyms: any[] = [];
+  terminologyId:any = null;
   id: string;
 
   SynonimSearchText: string;

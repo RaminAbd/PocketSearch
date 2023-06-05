@@ -1,0 +1,20 @@
+<div class="termin-upsert">
+  <div class="inputs">
+    <div class="input-item">
+      <label for="">Name</label>
+      <input type="text" [(ngModel)]="request.name">
+    </div>
+    <div class="input-item">
+      <label for="">Shorten name</label>
+      <input type="text" [(ngModel)]="request.shortenName">
+    </div>
+  </div>
+  <div class="btns">
+    <button class="delete" (click)="delete()">
+      Delete
+    </button>
+    <button class="create" (click)=" request.id ? update() : create()">
+      {{request.id ? 'Update' : 'Create'}}
+    </button>
+  </div>
+</div>

@@ -9,7 +9,7 @@ import { CardsDTO } from '../../models/CardsDTO.model';
 })
 export class CountCardsComponent {
   @Output() create = new EventEmitter();
-  @Input() CardsInfo: CardsDTO = new CardsDTO();
+  @Input() CardsInfo:any[] =[]
   constructor() { };
 
 }

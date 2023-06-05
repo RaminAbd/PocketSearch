@@ -6,6 +6,8 @@ import { WordUpsertService } from './word-upsert.service';
 import { MessageService, ConfirmationService, PrimeNGConfig } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CreateWordComponent } from '../../components/create-word/create-word.component';
+import { StorageService } from '../../services/storage.service';
+import { LoginResponse } from '../../models/LoginResponse.model';
 
 @Component({
   selector: 'app-word-upsert',
@@ -13,10 +15,17 @@ import { CreateWordComponent } from '../../components/create-word/create-word.co
   styleUrls: ['./word-upsert.component.scss']
 })
 export class WordUpsertComponent {
+  Terminologies: any[] = [];
+  selectedTerminology: any;
   Request: WordRequest = new WordRequest();
   WordId: string;
   deleteLoading: boolean = false;
   grammaticalInfoOptions: any[] = [
+    {
+      "name": "-------------",
+      "type": null,
+      "amount": 2
+    },
     {
       "name": "Verbs",
       "type": 1,
@@ -45,7 +54,8 @@ export class WordUpsertComponent {
     private route: ActivatedRoute,
     public dialogService: DialogService,
     private confirmationService: ConfirmationService,
-    private primengConfig: PrimeNGConfig
+    private primengConfig: PrimeNGConfig,
+    private storage: StorageService
   ) {
     this.primengConfig.ripple = true;
     this.WordId = this.route.snapshot.paramMap.get('id') as string;
@@ -53,6 +63,7 @@ export class WordUpsertComponent {
       this.getById(this.WordId);
     }
     this.addSense();
+    // this.service.getAllTerminologies(this);
   };
 
   getById(WordId: string) {
@@ -70,6 +81,21 @@ export class WordUpsertComponent {
         })
       })
     })
+  }
+
+  selectGrammaticalInfo(e:any, sense:WordsSense) {
+    sense.grammaticalInfo = e.type
+    console.log(sense.grammaticalInfo);
+    if(sense.grammaticalInfo === 1 || sense.grammaticalInfo === 4){
+      sense.terminologyId = null;
+    }
+  }
+  selectTerminology(e:any, sense:WordsSense) {
+    sense.terminologyId = e.id
+    console.log(sense.terminologyId);
+    if(sense.terminologyId){
+      sense.grammaticalInfo = null;
+    }
   }
 
 
@@ -92,6 +118,10 @@ export class WordUpsertComponent {
     }
   }
   saveClose() {
+    var res = this.storage.getObject('authResponse') as LoginResponse;
+    this.Request.editor = res.firstName + ' ' + res.lastName;;
+    this.Request.isDone = true;
+    this.Request.color = '#fff'
     if (this.WordId === 'create') {
       this.service.saveClose(this.Request);
     }
@@ -102,6 +132,10 @@ export class WordUpsertComponent {
     }
   }
   saveNew() {
+    var res = this.storage.getObject('authResponse') as LoginResponse;
+    this.Request.editor = res.firstName + ' ' + res.lastName;
+    this.Request.isDone = true;
+    this.Request.color = '#fff'
     this.service.saveNew(this.Request, this);
   }
 
@@ -202,7 +236,7 @@ export class WordUpsertComponent {
     this.selectAntonym(res, sense, antonym)
   }
 
-  createWord(sense: WordsSense) {
+  createWord(sense: WordsSense, type: number) {
     sense.AntonymSearchResults = [];
     sense.showAntonymDrop = false;
     sense.showSynonymDrop = false;
@@ -214,7 +248,12 @@ export class WordUpsertComponent {
     });
     ref.onClose.subscribe((req) => {
       if (req) {
-        console.log('creeated');
+        if (type === 1) {
+          this.search(sense);
+        }
+        else {
+          this.searchAntonym(sense);
+        }
       }
     });
   }
@@ -226,14 +265,18 @@ export class WordUpsertComponent {
 
   confirmPosition() {
     this.confirmationService.confirm({
-        message: 'Do you want to delete this record?',
-        header: 'Delete Confirmation',
-        icon: 'pi pi-info-circle',
-        accept: () => {
-          this.delete()
-        },
-        key: "positionDialog"
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.delete()
+      },
+      key: "positionDialog"
     });
-}
+  }
+
+
+
+
 
 }

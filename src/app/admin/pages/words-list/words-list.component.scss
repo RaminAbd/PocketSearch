@@ -174,7 +174,10 @@
           align-items: center;
           justify-content: space-between;
           box-sizing: border-box;
-
+          border-bottom: 1px solid #fff;
+          &.red{
+            background: rgba(236, 64, 122, 0.22);
+          }
           .row-item {
             width: calc((100% - 350px) / 6);
             display: flex;

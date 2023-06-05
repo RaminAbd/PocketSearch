@@ -5,6 +5,7 @@ import { WordsSense } from '../../models/WordsSense.model';
 import { StorageService } from '../../services/storage.service';
 import { WordsApiService } from '../../services/words.api.service';
 import { MessageService } from 'primeng/api';
+import { LoginResponse } from '../../models/LoginResponse.model';
 
 @Component({
   selector: 'app-create-word',
@@ -40,10 +41,10 @@ export class CreateWordComponent {
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    private storage:StorageService,
+    private storage: StorageService,
     private service: WordsApiService,
     private messageService: MessageService,
-    ) { this.addSense(); };
+  ) { this.addSense(); };
 
   addSense() {
     this.Request.senses.push(new WordsSense());
@@ -82,7 +83,7 @@ export class CreateWordComponent {
     req.dictionaryId = this.storage.getObject('dictionaryId');
     if (this.validateForm(req)) {
       this.Create(req).subscribe(resp => {
-         this.ref.close(this.Request);
+        this.ref.close(this.Request);
       })
     }
     else {
@@ -91,6 +92,10 @@ export class CreateWordComponent {
   }
 
   Create(req: WordRequest) {
+    var res = this.storage.getObject('authResponse') as LoginResponse;
+    req.editor = res.firstName + ' ' + res.lastName;;
+    req.isDone = false;
+    req.color = 'rgba(236, 64, 122, 0.22)'
     return this.service.Create('words', req);
   }
 }

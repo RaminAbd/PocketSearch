@@ -5,45 +5,22 @@
         All words
       </p>
       <p class="value">
-        {{CardsInfo.all.amount}}
+        {{CardsInfo[0].amount}}
       </p>
     </div>
     <div class="create">
       <button (click)="create.emit()">Add new</button>
     </div>
   </div>
-  <div class="other">
-    <div class="card-item">
+  <div class="other"  *ngFor="let item of CardsInfo; let i = index">
+    <div class="card-item" *ngIf="i > 0">
       <p class="label">
-        Adverbs
+        {{item.name}}
       </p>
       <p class="value">
-        {{CardsInfo.adverbs.amount}}
-      </p>
-    </div>
-    <div class="card-item">
-      <p class="label">
-        Verbs
-      </p>
-      <p class="value">
-        {{CardsInfo.verbs.amount}}
-      </p>
-    </div>
-    <div class="card-item">
-      <p class="label">
-        Nouns
-      </p>
-      <p class="value">
-        {{CardsInfo.nouns.amount}}
-      </p>
-    </div>
-    <div class="card-item">
-      <p class="label">
-        Pronouns
-      </p>
-      <p class="value">
-        {{CardsInfo.pronouns.amount}}
+        {{item.amount}}
       </p>
     </div>
   </div>
+
 </div>

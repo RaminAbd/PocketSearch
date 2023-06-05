@@ -36,6 +36,7 @@ export class WordsListService {
       var obj: WordsDTO = new WordsDTO();
       obj.id = item.id;
       obj.headWord = item.headWord;
+      obj.isDone = item.isDone;
       item.senses.forEach(s => {
         obj.glosses.push(s.gloss);
         obj.definitions.push(s.definition);
@@ -49,18 +50,19 @@ export class WordsListService {
       dto.items.push(obj);
     })
     component.WordsList = dto;
+    console.log(dto);
   }
   getCards(req: WordsPagingRequest, component: WordsListComponent) {
 
-    this.service.get('Words/GetCounts/', req.DictionaryId).subscribe(resp => {
-      var obj = {
-        all: resp.find((x: any) => x.type === -1),
-        verbs: resp.find((x: any) => x.type === 1),
-        pronouns: resp.find((x: any) => x.type === 2),
-        nouns: resp.find((x: any) => x.type === 3),
-        adverbs: resp.find((x: any) => x.type === 4)
+    this.service.get('Words/GetCountsByUser/', null, null).subscribe(resp => {
+      var all = {
+        name:'All words',
+        type:0,
+        amount: resp.map((item: any) => item.amount).reduce((acc: any, curr: any) => acc + curr, 0),
       }
-      component.cardsInfo = obj;
+      resp.unshift(all)
+      console.log(resp);
+      component.cardsInfo = resp;
     })
   }
 }
