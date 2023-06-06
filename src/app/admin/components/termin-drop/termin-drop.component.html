@@ -4,7 +4,7 @@
     <span class="arrow"></span>
   </div>
   <div class="dropdown-menu" [@fadeInOut]="isOpen ? 'show' : 'hide'">
-    <div class="dropdown-option" (click)="create()" style="font-weight: bold;">
+    <div class="dropdown-option" (click)="create()" style="font-weight: bold; color:#3F7EFF;">
       Create terminology
     </div>
     <div class="dropdown-option" *ngFor="let option of options" >

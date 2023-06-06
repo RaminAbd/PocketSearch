@@ -6,10 +6,12 @@ export class WordsSense {
   academic: string;
   exampleOriginal: string;
   exampleTranslation: string;
-  grammaticalInfo: any = null;
+  grammaticalInfo: any = undefined;
+  grammaticalInfoForView:any;
   synonyms: any[] = [];
   antonyms: any[] = [];
-  terminologyId:any = null;
+  terminologyId:any = undefined;
+  terminologyForView:any = null;
   id: string;
 
   SynonimSearchText: string;

@@ -22,29 +22,76 @@ export class WordUpsertComponent {
   deleteLoading: boolean = false;
   grammaticalInfoOptions: any[] = [
     {
-      "name": "-------------",
-      "type": null,
-      "amount": 2
+      "name": "Select",
+      "type": undefined,
+      "amount": 2,
+      "shortenName": '',
     },
     {
-      "name": "Verbs",
-      "type": 1,
-      "amount": 2
+      "name": "Isim",
+      "type": 5,
+      "amount": 0,
+      "shortenName": 'is.',
     },
     {
-      "name": "Pronouns",
-      "type": 2,
-      "amount": 0
+      "name": "Sifət",
+      "type": 5,
+      "amount": 0,
+      "shortenName": 'sif.',
     },
     {
-      "name": "Nouns",
-      "type": 3,
-      "amount": 0
+      "name": "Say",
+      "type": 5,
+      "amount": 0,
+      "shortenName": 'say',
     },
     {
-      "name": "Adverbs",
-      "type": 4,
-      "amount": 0
+      "name": "Əvəzlik",
+      "type": 5,
+      "amount": 0,
+      "shortenName": 'əv.',
+    },
+    {
+      "name": "Feil",
+      "type": 5,
+      "amount": 0,
+      "shortenName": 'feil',
+    },
+    {
+      "name": "Zərf",
+      "type": 5,
+      "amount": 0,
+      "shortenName": 'zərf',
+    },
+    {
+      "name": "Qoşma",
+      "type": 5,
+      "amount": 0,
+      "shortenName": 'qoş.',
+    },
+    {
+      "name": "Bağlayıcı",
+      "type": 5,
+      "amount": 0,
+      "shortenName": 'bağl.',
+    },
+    {
+      "name": "Ədat",
+      "type": 5,
+      "amount": 0,
+      "shortenName": 'əd.',
+    },
+    {
+      "name": "Modal sözlər",
+      "type": 5,
+      "amount": 0,
+      "shortenName": 'modal s.',
+    },
+    {
+      "name": "Nida",
+      "type": 5,
+      "amount": 0,
+      "shortenName": 'nida',
     }
   ]
 
@@ -83,18 +130,20 @@ export class WordUpsertComponent {
     })
   }
 
-  selectGrammaticalInfo(e:any, sense:WordsSense) {
+  selectGrammaticalInfo(e: any, sense: WordsSense) {
     sense.grammaticalInfo = e.type
-    console.log(sense.grammaticalInfo);
-    if(sense.grammaticalInfo === 1 || sense.grammaticalInfo === 4){
-      sense.terminologyId = null;
+    sense.grammaticalInfoForView = e.shortenName;
+    if (sense.grammaticalInfo) {
+      sense.terminologyId = undefined;
+      sense.terminologyForView = undefined;
     }
   }
-  selectTerminology(e:any, sense:WordsSense) {
+  selectTerminology(e: any, sense: WordsSense) {
     sense.terminologyId = e.id
-    console.log(sense.terminologyId);
-    if(sense.terminologyId){
-      sense.grammaticalInfo = null;
+    sense.terminologyForView = e.name;
+    if (sense.terminologyId) {
+      sense.grammaticalInfoForView  = undefined;
+      sense.grammaticalInfo = undefined;
     }
   }
 
@@ -158,6 +207,7 @@ export class WordUpsertComponent {
     sense.showSynonymDrop = false;
     sense.SearchResults = [];
     sense.SynonimSearchText = '';
+    console.log(sense);
   }
 
   removeSelectedSynonym(index: number, sense: WordsSense) {

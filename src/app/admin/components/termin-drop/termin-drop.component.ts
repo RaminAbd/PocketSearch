@@ -51,10 +51,10 @@ export class TerminDropComponent {
     this.options = []
     var dictId = this.storage.getObject('dictionaryId');
     var noneObj = {
-      "name": "-------------",
+      "name": "Select",
       "dictionaryId": "1721e505-5320-4f8d-8513-8b995d1778f0",
       "shortenName": "-----",
-      "id": null
+      "id": undefined
     }
     this.options.push(noneObj);
     this.termService.GetAllByDictionaryId(dictId).subscribe(resp => {
@@ -65,7 +65,7 @@ export class TerminDropComponent {
   create() {
     const ref = this.dialogService.open(TerminUpsertComponent, {
       header: 'Create new terminology',
-      width: '55%',
+      width: '30%',
       data: new TerminologyRequest()
     });
     ref.onClose.subscribe((req) => {

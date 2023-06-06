@@ -6,33 +6,21 @@
   <div class="preview-block">
     <p class="preview">Preview</p>
     <p class="preview-text">
-      <span style="font-weight: bold;">{{(Request.headWord ? Request.headWord : '')}}</span>
-      [{{Request.pronunciation? Request.pronunciation : ''}}] ts. <span
-        *ngFor="let item of Request.senses">{{item.gloss ? item.gloss : '' + ', '}}</span>- tərcümə.
+      <span>{{(Request.headWord ? Request.headWord : '')}}  [{{Request.pronunciation? Request.pronunciation : ''}}],  <span style="font-weight:bold;">loc</span>:{{Request.location? Request.location : ''}}, <span style="font-weight:bold;">etym</span>: {{Request.etymology? Request.etymology : ''}}</span>
       <br>
-      <span *ngFor="let item of Request.senses">{{item.definition?item.definition:'' + ', '}}</span> - izahı. <span
-        *ngFor="let item of Request.senses">{{item.exampleOriginal ? item.exampleOriginal : '' + ', '}}</span>-
-      ნიმუში sin:
-      <br>
-      <span>Synonyms: </span>
-      <span *ngFor="let item of Request.senses">
-        <span *ngFor="let s of item.synonyms">
-           {{s ? (s.headWord + s.gloss):'' + ', '}}
-
+      <span *ngFor="let item of Request.senses;let i = index;">
+        {{i + 1 +')'}}
+        <br>
+        <span><span style="font-weight:bold;">gl:</span>{{(item.gloss ? item.gloss : '')}}, <span style="font-weight:bold;">e.g.:</span>{{(item.exampleTranslation ? item.exampleTranslation : '')}},   </span>
+        <span>
+          <span style="font-weight:bold;" *ngIf="item.grammaticalInfoForView">gr info:</span>{{(item.grammaticalInfoForView ? item.grammaticalInfoForView : '')}},
+          <span style="font-weight:bold;" *ngIf="item.terminologyForView">term:</span>{{(item.terminologyForView ? item.terminologyForView : '')}}
+          <br>
+          <span style="font-weight:bold;" *ngIf="item.synonyms.length > 0">Synonyms:</span> <span *ngFor="let s of item.synonymsForView"> {{(s ? (s + ', ') : '')}}  </span>;
+          <span style="font-weight:bold;" *ngIf="item.antonyms.length > 0">Antonyms:</span> <span *ngFor="let s of item.antonymsForView"> {{(s ? (s + ', ') : '')}}  </span>;
         </span>
-      </span>
-      <br>
-      <span>Antonyms: </span>
-      <span *ngFor="let item of Request.senses">
-        <span *ngFor="let s of item.antonyms">
-           {{s ? (s.headWord + s.gloss):'' + ', '}}
 
-        </span>
-      </span>
-      <br>
-      <span>See also: </span>
-      <span *ngFor="let item of Request.senses">
-       {{item.definition + ', '}}
+        <br>
       </span>
     </p>
   </div>
@@ -173,7 +161,7 @@
           <div class="row">
             <div class="input-item">
               <label for="">Termin</label>
-              <app-termin-drop  (selectValue)="selectTerminology($event, sense)"
+              <app-termin-drop (selectValue)="selectTerminology($event, sense)"
                 [DefaultSelection]="sense.terminologyId"></app-termin-drop>
             </div>
           </div>
