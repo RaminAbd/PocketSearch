@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class BaseApiService {
-  BASE_URL: string = "http://pocketsearch-001-site1.etempurl.com/api/";
+  BASE_URL: string = "https://pocketsearch-001-site1.etempurl.com/api/";
   http: HttpClient;
 
   constructor(http: HttpClient) {
