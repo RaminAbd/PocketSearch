@@ -3,7 +3,7 @@ import { WordRequest } from '../../models/WordRequest.model';
 import { WordsSense } from '../../models/WordsSense.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WordUpsertService } from './word-upsert.service';
-import { MessageService, ConfirmationService, PrimeNGConfig } from 'primeng/api';
+import { ConfirmationService, PrimeNGConfig } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { CreateWordComponent } from '../../components/create-word/create-word.component';
 import { StorageService } from '../../services/storage.service';
@@ -160,7 +160,7 @@ export class WordUpsertComponent {
     }
     else {
       this.deleteLoading = true;
-      this.service.delete(this.Request).subscribe(resp => {
+      this.service.delete(this.Request).subscribe(() => {
         this.deleteLoading = false;
         this.router.navigate(['main']);
       })
@@ -168,14 +168,14 @@ export class WordUpsertComponent {
   }
   saveClose() {
     var res = this.storage.getObject('authResponse') as LoginResponse;
-    this.Request.editor = res.firstName + ' ' + res.lastName;;
+    this.Request.editor = res.firstName + ' ' + res.lastName;
     this.Request.isDone = true;
     this.Request.color = '#fff'
     if (this.WordId === 'create') {
       this.service.saveClose(this.Request);
     }
     else {
-      this.service.update(this.Request).subscribe(response => {
+      this.service.update(this.Request).subscribe(() => {
         this.router.navigate(['main']);
       })
     }
@@ -203,7 +203,7 @@ export class WordUpsertComponent {
   }
   selectSynonym(res: any, sense: WordsSense, synonym: any) {
     sense.synonyms.push(synonym);
-    sense.synonymsForView.push(res.headWord + ' ( ' + res.senses[0].gloss + ' )');
+    sense.synonymsForView.push(res.headWord + ' ( ' + res.senses.find((x:any)=>x.id === synonym.senseId).gloss + ' )');
     sense.showSynonymDrop = false;
     sense.SearchResults = [];
     sense.SynonimSearchText = '';
@@ -252,7 +252,7 @@ export class WordUpsertComponent {
   }
   selectAntonym(res: any, sense: WordsSense, antonym: any) {
     sense.antonyms.push(antonym);
-    sense.antonymsForView.push(res.headWord + ' ( ' + res.senses[0].gloss + ' )');
+    sense.antonymsForView.push(res.headWord + ' ( ' + res.senses.find((x:any)=>x.id === antonym.senseId).gloss + ' )');
     sense.showAntonymDrop = false;
     sense.AntonymSearchResults = [];
     sense.AntonymSearchText = '';
