@@ -1,0 +1,20 @@
+<div class="customer-header">
+  <div class="logo" (click)="goToHome()">
+    <p>Pocket <span>Search</span></p>
+  </div>
+  <div class="links">
+    <a [routerLink]="'home'" [routerLinkActive]="['active']">
+      <p>Home</p>
+    </a>
+    <a [routerLink]="'list'" [routerLinkActive]="['active']">
+      <p>Vocabulary list</p>
+    </a>
+    <a [routerLink]="'favorites'" [routerLinkActive]="['active']">
+      <p>Favorites</p>
+    </a>
+    <a [routerLink]="'about-us'" [routerLinkActive]="['active']">
+      <p class="about-us">About us</p>
+    </a>
+  </div>
+  <div class="block"></div>
+</div>

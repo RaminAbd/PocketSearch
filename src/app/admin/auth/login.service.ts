@@ -17,7 +17,9 @@ export class LoginService {
 
   }
   SignIn(req: LoginRequestDTO) {
+    console.log(req)
     this.usersApiService.SignIn(req).subscribe(resp => {
+      console.log(resp)
       this.router.navigate(['/main']);
       this.storage.saveObject('authResponse', resp);
       this.storage.saveObject('signin-req', req);

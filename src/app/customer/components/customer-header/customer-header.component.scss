@@ -1,0 +1,50 @@
+.customer-header{
+      display: flex;
+    align-items: center;
+    justify-content: space-between;
+  padding: 33px 70px;
+  .logo{
+    cursor: pointer;
+    p{
+      margin: 0;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 21px;
+      color: #059186;
+      span{
+        font-weight: bold;
+      }
+    }
+  }
+  .links{
+    display: flex;
+    gap: 64px;
+
+    a{
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      letter-spacing: 0.48px;
+      &.active{
+        color: #059186;
+       p{
+         background: var(--angular-gradient, conic-gradient(from 0deg at 0.00% 100.00%, #059186 0deg, #11D0C1 65.62500178813934deg, #059186 360deg));
+         background-clip: text;
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+       }
+
+      }
+
+    }
+    p{
+      margin: 0;
+    }
+  }
+  .block{
+    width: 130px;
+  }
+}

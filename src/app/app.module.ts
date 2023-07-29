@@ -24,6 +24,12 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import { TerminDropComponent } from './admin/components/termin-drop/termin-drop.component';
 import { TerminUpsertComponent } from './admin/components/termin-upsert/termin-upsert.component';
+import { HomeComponent } from './customer/pages/home/home.component';
+import { CustomerLayoutComponent } from './customer/pages/customer-layout/customer-layout.component';
+import { NotFoundComponent } from './customer/pages/not-found/not-found.component';
+import { CustomerHeaderComponent } from './customer/components/customer-header/customer-header.component';
+import { AboutUsComponent } from './customer/pages/about-us/about-us.component';
+import { CustomerFooterComponent } from './customer/components/customer-footer/customer-footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +43,13 @@ import { TerminUpsertComponent } from './admin/components/termin-upsert/termin-u
     MultiselectComponent,
     CreateWordComponent,
     TerminDropComponent,
-    TerminUpsertComponent
+    TerminUpsertComponent,
+    HomeComponent,
+    CustomerLayoutComponent,
+    NotFoundComponent,
+    CustomerHeaderComponent,
+    AboutUsComponent,
+    CustomerFooterComponent,
   ],
   imports: [
     BrowserModule,

@@ -61,8 +61,12 @@ export class WordsListService {
         amount: resp.map((item: any) => item.amount).reduce((acc: any, curr: any) => acc + curr, 0),
       }
       resp.unshift(all)
-      console.log(resp);
-      component.cardsInfo = resp;
+
+      component.cardsInfo = resp.map((item:any)=>({
+        ...item,
+        firstName:item.name.split(' ')[0]
+      }))
+      console.log(component.cardsInfo );
     })
   }
 }
