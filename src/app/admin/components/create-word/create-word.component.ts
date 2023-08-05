@@ -18,24 +18,76 @@ export class CreateWordComponent {
   deleteLoading: boolean = false;
   grammaticalInfoOptions: any[] = [
     {
-      "name": "Verbs",
+      "name": "Select",
+      "type": undefined,
+      "amount": 2,
+      "shortenName": '',
+    },
+    {
+      "name": "Isim",
       "type": 1,
-      "amount": 2
+      "amount": 0,
+      "shortenName": 'is.',
     },
     {
-      "name": "Pronouns",
+      "name": "Sifət",
       "type": 2,
-      "amount": 0
+      "amount": 0,
+      "shortenName": 'sif.',
     },
     {
-      "name": "Nouns",
+      "name": "Say",
       "type": 3,
-      "amount": 0
+      "amount": 0,
+      "shortenName": 'say',
     },
     {
-      "name": "Adverbs",
+      "name": "Əvəzlik",
       "type": 4,
-      "amount": 0
+      "amount": 0,
+      "shortenName": 'əv.',
+    },
+    {
+      "name": "Feil",
+      "type": 5,
+      "amount": 0,
+      "shortenName": 'feil',
+    },
+    {
+      "name": "Zərf",
+      "type": 6,
+      "amount": 0,
+      "shortenName": 'zərf',
+    },
+    {
+      "name": "Qoşma",
+      "type": 7,
+      "amount": 0,
+      "shortenName": 'qoş.',
+    },
+    {
+      "name": "Bağlayıcı",
+      "type": 8,
+      "amount": 0,
+      "shortenName": 'bağl.',
+    },
+    {
+      "name": "Ədat",
+      "type": 9,
+      "amount": 0,
+      "shortenName": 'əd.',
+    },
+    {
+      "name": "Modal sözlər",
+      "type": 10,
+      "amount": 0,
+      "shortenName": 'modal s.',
+    },
+    {
+      "name": "Nida",
+      "type": 11,
+      "amount": 0,
+      "shortenName": 'nida',
     }
   ]
   constructor(
